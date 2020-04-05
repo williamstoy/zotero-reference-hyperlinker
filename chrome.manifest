@@ -1,7 +1,7 @@
-content zoteroocr chrome/content/
+content zoteroreferencehyperlinker chrome/content/
 
-overlay chrome://zotero/content/zoteroPane.xul chrome://zoteroocr/content/overlay.xul
+overlay chrome://zotero/content/zoteroPane.xul chrome://zoteroreferencehyperlinker/content/overlay.xul
 
-locale  zoteroocr  en-US   chrome/locale/en-US/
+locale  zoteroreferencehyperlinker  en-US   chrome/locale/en-US/
 
-skin    zoteroocr  default chrome/skin/default/zoteroocr/
+skin    zoteroreferencehyperlinker  default chrome/skin/default/zoteroreferencehyperlinker/

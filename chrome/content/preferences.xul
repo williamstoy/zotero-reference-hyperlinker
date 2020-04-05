@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!DOCTYPE prefwindow SYSTEM "chrome://zotero-reference-hyperlinker/locale/zoteroreferencehyperlinker.dtd">
+<!DOCTYPE prefwindow SYSTEM "chrome://zoteroreferencehyperlinker/locale/zoteroreferencehyperlinker.dtd">
 
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://zotero-platform/content/preferences.css"?>
