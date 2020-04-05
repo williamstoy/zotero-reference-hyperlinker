@@ -6,7 +6,7 @@
         RDF:about="urn:mozilla:install-manifest"
         em:id="ws2574@columbia.edu"
         em:name="Zotero Reference Hyperlinker"
-        em:version="0.0.16"
+        em:version="0.0.17"
         em:type="2"
         em:iconURL="chrome://zoteroreferencehyperlinker/skin/ubmannheim.png"
         em:icon64URL="chrome://zoteroreferencehyperlinker/skin/ubmannheim64x64.png"
