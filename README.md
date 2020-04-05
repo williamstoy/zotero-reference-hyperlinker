@@ -22,14 +22,6 @@ Run `build.sh` script, which creates a new `.xpi` file.
 For a new release, run the script `release.sh`, push the code changes, publish a [new release on GitHub](https://github.com/williamstoy/zotero-reference-hyperlinker/releases/new) and attach the `.xpi` file there.
 
 
-## Development
-
-Create a text file containing the full path to this directory,
-name the file `zotero-ocr@bib.uni-mannheim.de`, and place it in the `extensions`
-subdirectory of your [Zotero profile directory](https://www.zotero.org/support/kb/profile_directory).
-Restart Zotero to try the latest code changes.
-
-
 ## License
 
 The source code is released under [GNU Affero General Public License v3](LICENSE).
