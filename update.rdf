@@ -5,13 +5,13 @@
       <rdf:Seq>
         <rdf:li>
           <rdf:Description>
-            <em:version>0.0.12</em:version>
+            <em:version>0.0.13</em:version>
             <em:targetApplication>
               <rdf:Description>
                 <em:id>zotero@chnm.gmu.edu</em:id>
                 <em:minVersion>5.0</em:minVersion>
                 <em:maxVersion>5.*</em:maxVersion>
-                <em:updateLink>https://github.com/williamstoy/zotero-reference-hyperlinker/releases/download/0.0.12/zotero-reference-hyperlinker-0.0.12.xpi</em:updateLink>
+                <em:updateLink>https://github.com/williamstoy/zotero-reference-hyperlinker/releases/download/0.0.13/zotero-reference-hyperlinker-0.0.13.xpi</em:updateLink>
               </rdf:Description>
             </em:targetApplication>
           </rdf:Description>
