@@ -74,7 +74,7 @@ Zotero.ReferenceHyperlinker = new function() {
 				if(this.readyState==4) {
 					if(this.status==200) {
 						let pdf = '/Users/williamstoy/Zotero/storage/FFFXTAID/Dan and Poo - 2004 - Spike Timing-Dependent Plasticity of Neural Circui.pdf';
-						let contents = yield Zotero.File.getContentsAsync(pdf);
+						let contents = Zotero.File.getContentsAsync(pdf);
 
 						alert(typeof contents);
 					} else {
