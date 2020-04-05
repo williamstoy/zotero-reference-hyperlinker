@@ -27,55 +27,11 @@ Zotero.ReferenceHyperlinker = new function() {
 		// Look for the tesseract executable in the settings and at commonly used locations.
 		// If it is found, the settings are updated.
 		// Otherwise abort with an alert.
-		let ocrEngine = Zotero.Prefs.get("zoteroreferencehyperlinker.ocrPath");
-		let found = false;
-		if (ocrEngine) {
-			found = yield OS.File.exists(ocrEngine);
-		}
-		else {
-			let path = ["/usr/local/bin/", "/usr/bin/", "C:\\Program Files\\Tesseract-OCR\\", ""];
-			for (ocrEngine of path) {
-				ocrEngine += "tesseract";
-				if (Zotero.isWin) {
-					ocrEngine += ".exe";
-				}
-				if (yield OS.File.exists(ocrEngine)) {
-					found = true;
-					Zotero.debug("Found " + ocrEngine);
-					Zotero.Prefs.set("zoteroreferencehyperlinker.ocrPath", ocrEngine);
-					break;
-				}
-				Zotero.debug("No " + ocrEngine);
-			}
-		}
-		if (!found) {
-			alert("No " + ocrEngine + " executable found.");
-			return;
-		}
-
-		// Look for pdfinfo and pdftoppm in the same directory as the zotero executable.
-		// Abort with an alert if they are not found.
-		// See https://developer.mozilla.org/en-US/docs/Archive/Add-ons/Code_snippets/File_I_O#Getting_special_files
-		// and https://dxr.mozilla.org/mozilla-central/source/xpcom/io/nsDirectoryServiceDefs.h.
-		let dir = FileUtils.getDir('GreBinD', []);
-		let pdfinfo = dir.clone();
-		pdfinfo.append("pdfinfo");
-		pdfinfo = pdfinfo.path;
-		let pdftoppm = dir.clone();
-		pdftoppm.append("pdftoppm");
-		pdftoppm = pdftoppm.path;
-		if (Zotero.isWin) {
-			pdfinfo = pdfinfo + ".exe";
-			pdftoppm = pdftoppm + ".exe";
-		}
-		if (!(yield OS.File.exists(pdfinfo))) {
-			alert("No " + pdfinfo + " executable found.");
-			return;
-		}
-		if (!(yield OS.File.exists(pdftoppm))) {
-			alert("No " + pdftoppm + " executable found.");
-			return;
-		}
+		let ocrEngine = Zotero.Prefs.get("zoteroreferencehyperlinker.grobidPath");
+		let port = Zotero.Prefs.get("zoteroreferencehyperlinker.port");
+		let overwritePDF = Zotero.Prefs.get("zoteroreferencehyperlinker.overwritePDF");
+		
+		// check to see if the server is running
 
 		let items = Zotero.getActiveZoteroPane().getSelectedItems();
 		for (let item of items) {
@@ -108,9 +64,11 @@ Zotero.ReferenceHyperlinker = new function() {
 			let base = pdf.replace(/\.pdf$/, '');
 			let dir = OS.Path.dirname(pdf);
 			let infofile = base + '.info.txt';
-			let ocrbase = Zotero.Prefs.get("zoteroreferencehyperlinker.overwritePDF") ? base : base + '.ocr';
+			let hyperlinkedbase = Zotero.Prefs.get("zoteroreferencehyperlinker.overwritePDF") ? base : base + '.hyperlinked';
 			// TODO filter out PDFs which have already a text layer
 
+			alert(pdf);
+			/*
 			// extract images from PDF
 			let imageList = OS.Path.join(dir, 'image-list.txt');
 			if (!(yield OS.File.exists(imageList))) {
@@ -136,7 +94,7 @@ Zotero.ReferenceHyperlinker = new function() {
 
 			let parameters = [dir + '/image-list.txt'];
 			let requestedFormats = [];
-			parameters.push(ocrbase);
+			parameters.push(hyperlinkedbase);
 			if (Zotero.Prefs.get("zoteroreferencehyperlinker.language")) {
 				parameters.push('-l');
 				parameters.push(Zotero.Prefs.get("zoteroreferencehyperlinker.language"));
@@ -159,7 +117,7 @@ Zotero.ReferenceHyperlinker = new function() {
 			}
 
 			if (Zotero.Prefs.get("zoteroreferencehyperlinker.outputNote")) {
-				let contents = yield Zotero.File.getContentsAsync(ocrbase + '.txt');
+				let contents = yield Zotero.File.getContentsAsync(hyperlinkedbase + '.txt');
 				let newNote = new Zotero.Item('note');
 				newNote.setNote(contents);
 				newNote.parentID = item.id;
@@ -169,7 +127,7 @@ Zotero.ReferenceHyperlinker = new function() {
 			// create attachments with link to output formats
 			for (let format of requestedFormats) {
 				yield Zotero.Attachments.linkFromFile({
-					file: ocrbase + '.' + format,
+					file: hyperlinkedbase + '.' + format,
 					parentItemID: item.id
 				});
 			}
@@ -182,6 +140,7 @@ Zotero.ReferenceHyperlinker = new function() {
 					yield Zotero.File.removeIfExists(imageName);
 				}
 			}
+			*/
 		}
 	});
 

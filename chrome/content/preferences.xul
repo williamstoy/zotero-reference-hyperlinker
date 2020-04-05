@@ -23,7 +23,7 @@
     <prefpane label="General" id="zoteroreferencehyperlinker-prefpane-general" flex="1">
         <preferences>
             <preference id="pref-zoteroreferencehyperlinker-grobidPath" name="extensions.zotero.zoteroreferencehyperlinker.grobidPath" type="string"/>
-            <preference id="pref-zoteroreferencehyperlinker-port" name="extensions.zotero.zoteroreferencehyperlinker.port" type="string"/>
+            <preference id="pref-zoteroreferencehyperlinker-port" name="extensions.zotero.zoteroreferencehyperlinker.port" type="int"/>
             <preference id="pref-zoteroreferencehyperlinker-overwrite-pdf" name="extensions.zotero.zoteroreferencehyperlinker.overwritePDF" type="bool"/>
         </preferences>
         <groupbox>
