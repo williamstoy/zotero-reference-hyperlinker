@@ -67,7 +67,16 @@ Zotero.ReferenceHyperlinker = new function() {
 			let hyperlinkedbase = Zotero.Prefs.get("zoteroreferencehyperlinker.overwritePDF") ? base : base + '.hyperlinked';
 			// TODO filter out PDFs which have already a text layer
 
-			alert(pdf);
+			// check to make sure the local server is running
+			const Http = new XMLHttpRequest();
+			const url='localhost:' + port + '/api/isalive';
+			Http.open("GET", url);
+			Http.send();
+
+			Http.onreadystatechange = function(e) {
+				alert(Http.responseText);
+			}
+
 			/*
 			// extract images from PDF
 			let imageList = OS.Path.join(dir, 'image-list.txt');
