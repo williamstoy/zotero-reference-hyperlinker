@@ -1,6 +1,3 @@
-// don't set ocrPath, language by default
-pref("extensions.zotero.zoteroocr.outputNote", true);
-pref("extensions.zotero.zoteroocr.outputPDF", true);
-pref("extensions.zotero.zoteroocr.overwritePDF", false);
-pref("extensions.zotero.zoteroocr.outputHocr", true);
-pref("extensions.zotero.zoteroocr.outputPNG", true);
+
+pref("extensions.zotero.zoteroreferencehyperlinker.overwritePDF", true);
+pref("extensions.zotero.zoteroreferencehyperlinker.port", '8070'); // should be type int

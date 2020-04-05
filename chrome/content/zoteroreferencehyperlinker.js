@@ -1,16 +1,16 @@
-// zoteroocr.js
+// zoteroreferencehyperlinker.js
 
 // See https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules.
 Components.utils.import("resource://gre/modules/FileUtils.jsm");
 Components.utils.import("resource://gre/modules/osfile.jsm");
 
-Zotero.OCR = new function() {
+Zotero.ReferenceHyperlinker = new function() {
 
 	this.openPreferenceWindow = function(paneID, action) {
 		var io = {pane: paneID, action: action};
 		window.openDialog(
-				'chrome://zoteroocr/content/preferences.xul',
-				'zoteroocr-preferences-windowname',
+				'chrome://zoteroreferencehyperlinker/content/preferences.xul',
+				'zoteroreferencehyperlinker-preferences-windowname',
 				'chrome,titlebar,toolbar,centerscreen' + Zotero.Prefs.get('browser.preferences.instantApply', true) ? 'dialog=no' : 'modal', io
 		);
 	};
@@ -18,7 +18,7 @@ Zotero.OCR = new function() {
 	// disable or enable the nested option to overwrite PDF
 	this.updatePDFOverwritePref = function () {
 		setTimeout(() => {
-			document.getElementById('checkbox-zoteroocr-overwrite-pdf').disabled = !document.getElementById('checkbox-zoteroocr-output-pdf').checked;
+			document.getElementById('checkbox-zoteroreferencehyperlinker-overwrite-pdf').disabled = !document.getElementById('checkbox-zoteroreferencehyperlinker-output-pdf').checked;
 		});
 	};
 
@@ -27,7 +27,7 @@ Zotero.OCR = new function() {
 		// Look for the tesseract executable in the settings and at commonly used locations.
 		// If it is found, the settings are updated.
 		// Otherwise abort with an alert.
-		let ocrEngine = Zotero.Prefs.get("zoteroocr.ocrPath");
+		let ocrEngine = Zotero.Prefs.get("zoteroreferencehyperlinker.ocrPath");
 		let found = false;
 		if (ocrEngine) {
 			found = yield OS.File.exists(ocrEngine);
@@ -42,7 +42,7 @@ Zotero.OCR = new function() {
 				if (yield OS.File.exists(ocrEngine)) {
 					found = true;
 					Zotero.debug("Found " + ocrEngine);
-					Zotero.Prefs.set("zoteroocr.ocrPath", ocrEngine);
+					Zotero.Prefs.set("zoteroreferencehyperlinker.ocrPath", ocrEngine);
 					break;
 				}
 				Zotero.debug("No " + ocrEngine);
@@ -108,7 +108,7 @@ Zotero.OCR = new function() {
 			let base = pdf.replace(/\.pdf$/, '');
 			let dir = OS.Path.dirname(pdf);
 			let infofile = base + '.info.txt';
-			let ocrbase = Zotero.Prefs.get("zoteroocr.overwritePDF") ? base : base + '.ocr';
+			let ocrbase = Zotero.Prefs.get("zoteroreferencehyperlinker.overwritePDF") ? base : base + '.ocr';
 			// TODO filter out PDFs which have already a text layer
 
 			// extract images from PDF
@@ -137,16 +137,16 @@ Zotero.OCR = new function() {
 			let parameters = [dir + '/image-list.txt'];
 			let requestedFormats = [];
 			parameters.push(ocrbase);
-			if (Zotero.Prefs.get("zoteroocr.language")) {
+			if (Zotero.Prefs.get("zoteroreferencehyperlinker.language")) {
 				parameters.push('-l');
-				parameters.push(Zotero.Prefs.get("zoteroocr.language"));
+				parameters.push(Zotero.Prefs.get("zoteroreferencehyperlinker.language"));
 			}
 			parameters.push('txt');
-			if (Zotero.Prefs.get("zoteroocr.outputPDF")) {
+			if (Zotero.Prefs.get("zoteroreferencehyperlinker.outputPDF")) {
 				parameters.push('pdf');
 				requestedFormats.push('pdf');
 			}
-			if (Zotero.Prefs.get("zoteroocr.outputHocr")) {
+			if (Zotero.Prefs.get("zoteroreferencehyperlinker.outputHocr")) {
 				parameters.push('hocr');
 				requestedFormats.push('hocr');
 			}
@@ -158,7 +158,7 @@ Zotero.OCR = new function() {
 				Zotero.logError(e);
 			}
 
-			if (Zotero.Prefs.get("zoteroocr.outputNote")) {
+			if (Zotero.Prefs.get("zoteroreferencehyperlinker.outputNote")) {
 				let contents = yield Zotero.File.getContentsAsync(ocrbase + '.txt');
 				let newNote = new Zotero.Item('note');
 				newNote.setNote(contents);
@@ -174,7 +174,7 @@ Zotero.OCR = new function() {
 				});
 			}
 			
-			if (!Zotero.Prefs.get("zoteroocr.outputPNG") && imageListArray) {
+			if (!Zotero.Prefs.get("zoteroreferencehyperlinker.outputPNG") && imageListArray) {
 				// delete image list
 				yield Zotero.File.removeIfExists(imageList);
 				// delete PNGs

@@ -4,17 +4,17 @@
     xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <RDF:Description
         RDF:about="urn:mozilla:install-manifest"
-        em:id="zotero-ocr@bib.uni-mannheim.de"
-        em:name="Zotero OCR"
-        em:version="0.3.0"
+        em:id="ws2574@columbia.edu"
+        em:name="Zotero Reference Hyperlinker"
+        em:version="0.0.1"
         em:type="2"
-        em:iconURL="chrome://zoteroocr/skin/ubmannheim.png"
-        em:icon64URL="chrome://zoteroocr/skin/ubmannheim64x64.png"
-        em:creator="Philipp Zumstein"
-        em:description="Zotero Plugin for OCR"
-        em:homepageURL="https://github.com/UB-Mannheim/zotero-ocr"
-        em:updateURL="https://raw.githubusercontent.com/UB-Mannheim/zotero-ocr/master/update.rdf">
-        <em:optionsURL>chrome://zoteroocr/content/preferences.xul</em:optionsURL>
+        em:iconURL="chrome://zoteroreferencehyperlinker/skin/ubmannheim.png"
+        em:icon64URL="chrome://zoteroreferencehyperlinker/skin/ubmannheim64x64.png"
+        em:creator="William Stoy"
+        em:description="Zotero Plugin for Hyperlinking References in PDFs"
+        em:homepageURL="https://github.com/williamstoy/zotero-reference-hyperlinker"
+        em:updateURL="https://raw.githubusercontent.com/williamstoy/zotero-reference-hyperlinker/master/update.rdf">
+        <em:optionsURL>chrome://zoteroreferencehyperlinker/content/preferences.xul</em:optionsURL>
         <em:type>2</em:type>
         <em:targetApplication>
             <Description>

@@ -17,8 +17,8 @@ git add "install.rdf"
 ##############
 
 perl -pi -e "s/<em:version>[^<]*/<em:version>$version/;" \
-          -e "s/<em:updateLink>[^<]*/<em:updateLink>https:\/\/github.com\/UB-Mannheim\/zotero-ocr\/releases\/download\/$version\/zotero-ocr-$version.xpi/;" \
-          -e "s/<em:updateInfoURL>[^<]*/<em:updateInfoURL>https:\/\/github.com\/UB-Mannheim\/zotero-ocr\/releases\/tag\/$version/;" \
+          -e "s/<em:updateLink>[^<]*/<em:updateLink>https:\/\/github.com\/williamstoy\/zotero-reference-hyperlinker\/releases\/download\/$version\/zotero-reference-hyperlinker-$version.xpi/;" \
+          -e "s/<em:updateInfoURL>[^<]*/<em:updateInfoURL>https:\/\/github.com\/williamstoy\/zotero-reference-hyperlinker\/releases\/tag\/$version/;" \
     update.rdf
 git add "update.rdf"
 rm "update.rdf.bak"

@@ -6,5 +6,5 @@ if [ -z "$version" ]; then
 fi
 
 
-rm -f zotero-ocr-${version}.xpi
-zip -r zotero-ocr-${version}.xpi chrome/* defaults/* chrome.manifest install.rdf
+rm -f zotero-reference-hyperlinker-${version}.xpi
+zip -r zotero-reference-hyperlinker-${version}.xpi chrome/* defaults/* chrome.manifest install.rdf

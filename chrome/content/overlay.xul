@@ -1,32 +1,32 @@
 <?xml version="1.0"?>
 
-<!DOCTYPE overlay SYSTEM "chrome://zoteroocr/locale/zoteroocr.dtd">
+<!DOCTYPE overlay SYSTEM "chrome://zoteroreferencehyperlinker/locale/zoteroreferencehyperlinker.dtd">
 
 <overlay
-    id="zoteroocr"
+    id="zoteroreferencehyperlinker"
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script src="chrome://zotero/content/include.js"/>
-    <script src="chrome://zoteroocr/content/zoteroocr.js"/>
+    <script src="chrome://zoteroreferencehyperlinker/content/zoteroreferencehyperlinker.js"/>
 
     <stringbundleset id="stringbundleset">
         <stringbundle
-            id="zoteroocr-bundle"
-            src="chrome://zoteroocr/locale/zoteroocr.properties"/>
+            id="zoteroreferencehyperlinker-bundle"
+            src="chrome://zoteroreferencehyperlinker/locale/zoteroreferencehyperlinker.properties"/>
     </stringbundleset>
 
     <popup id="zotero-itemmenu">
         <menuitem
             class="menuitem-iconic"
-            image="chrome://zoteroocr/skin/ubmannheim32x32.png"
-            id="zotero-itemmenu-ocr-menu"
-            label="&ocr.menu.label;"
-            oncommand="Zotero.OCR.recognize()"
+            image="chrome://zoteroreferencehyperlinker/skin/ubmannheim32x32.png"
+            id="zotero-itemmenu-referencehyperlinker-menu"
+            label="&referencehyperlinker.menu.label;"
+            oncommand="Zotero.ReferenceHyperlinker.recognize()"
           />
     </popup>
 
     <menupopup id="menu_ToolsPopup">
-      <menuitem id="zoteroocr-options" insertafter="menu_preferences" label="&ocr.preferences.label;" oncommand="Zotero.OCR.openPreferenceWindow();"/>
+      <menuitem id="zoteroreferencehyperlinker-options" insertafter="menu_preferences" label="&referencehyperlinker.preferences.label;" oncommand="Zotero.ReferenceHyperlinker.openPreferenceWindow();"/>
     </menupopup>
 
 </overlay>
