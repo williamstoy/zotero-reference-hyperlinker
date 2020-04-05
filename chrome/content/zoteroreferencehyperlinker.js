@@ -27,8 +27,8 @@ Zotero.ReferenceHyperlinker = new function() {
 		// Look for the tesseract executable in the settings and at commonly used locations.
 		// If it is found, the settings are updated.
 		// Otherwise abort with an alert.
-		let ocrEngine = Zotero.Prefs.get("zoteroreferencehyperlinker.grobidPath");
-		let port = Zotero.Prefs.get("zoteroreferencehyperlinker.port");
+		let grobidPath = Zotero.Prefs.get("zoteroreferencehyperlinker.grobidPath");
+		let port = 8070; //Zotero.Prefs.get("zoteroreferencehyperlinker.port");
 		let overwritePDF = Zotero.Prefs.get("zoteroreferencehyperlinker.overwritePDF");
 		
 		// check to see if the server is running
@@ -63,93 +63,27 @@ Zotero.ReferenceHyperlinker = new function() {
 			let pdf = pdfItem.getFilePath();
 			let base = pdf.replace(/\.pdf$/, '');
 			let dir = OS.Path.dirname(pdf);
-			let infofile = base + '.info.txt';
-			let hyperlinkedbase = Zotero.Prefs.get("zoteroreferencehyperlinker.overwritePDF") ? base : base + '.hyperlinked';
+			let hyperlinkedbase = Zotero.Prefs.get("zoteroreferencehyperlinker.overwritePDF") ? base : base + '.hyperlinked.pdf';
 			// TODO filter out PDFs which have already a text layer
 
 			// check to make sure the local server is running
-			const Http = new XMLHttpRequest();
-			const url='localhost:' + port + '/api/isalive';
-			Http.open("GET", url);
-			Http.send();
+			const request = new XMLHttpRequest();
+			request.open("GET", 'http://127.0.0.1:' + port + '/api/isalive');
 
-			Http.onreadystatechange = function(e) {
-				alert(Http.responseText);
-			}
+			request.onreadystatechange = function(e) {
+				if(this.readyState==4) {
+					if(this.status==200) {
+						let pdf = '/Users/williamstoy/Zotero/storage/FFFXTAID/Dan and Poo - 2004 - Spike Timing-Dependent Plasticity of Neural Circui.pdf';
+						let contents = yield Zotero.File.getContentsAsync(pdf);
 
-			/*
-			// extract images from PDF
-			let imageList = OS.Path.join(dir, 'image-list.txt');
-			if (!(yield OS.File.exists(imageList))) {
-				try {
-					Zotero.debug("Running " + pdfinfo + ' ' + pdf + ' ' + infofile);
-					yield Zotero.Utilities.Internal.exec(pdfinfo, [pdf, infofile]);
-					Zotero.debug("Running " + pdftoppm + ' -png -r 300 ' + pdf + ' ' + dir + '/page');
-					yield Zotero.Utilities.Internal.exec(pdftoppm, ['-png', '-r', 300, pdf, dir + '/page']);
-				}
-				catch (e) {
-					Zotero.logError(e);
-				}
-				// save the list of images in a separate file
-				let info = yield Zotero.File.getContentsAsync(infofile);
-				let numPages = info.match('Pages:[^0-9]+([0-9]+)')[1];
-				var imageListArray = [];
-				for (let i = 1; i <= parseInt(numPages, 10); i++) {
-					let paddedIndex = "0".repeat(numPages.length) + i;
-					imageListArray.push(dir + '/page-' + paddedIndex.substr(-numPages.length) + '.png');
-				}
-				Zotero.File.putContents(Zotero.File.pathToFile(imageList), imageListArray.join('\n'));
-			}
-
-			let parameters = [dir + '/image-list.txt'];
-			let requestedFormats = [];
-			parameters.push(hyperlinkedbase);
-			if (Zotero.Prefs.get("zoteroreferencehyperlinker.language")) {
-				parameters.push('-l');
-				parameters.push(Zotero.Prefs.get("zoteroreferencehyperlinker.language"));
-			}
-			parameters.push('txt');
-			if (Zotero.Prefs.get("zoteroreferencehyperlinker.outputPDF")) {
-				parameters.push('pdf');
-				requestedFormats.push('pdf');
-			}
-			if (Zotero.Prefs.get("zoteroreferencehyperlinker.outputHocr")) {
-				parameters.push('hocr');
-				requestedFormats.push('hocr');
-			}
-			try {
-				Zotero.debug("Running " + ocrEngine + ' ' + parameters.join(' '));
-				yield Zotero.Utilities.Internal.exec(ocrEngine, parameters);
-			}
-			catch (e) {
-				Zotero.logError(e);
-			}
-
-			if (Zotero.Prefs.get("zoteroreferencehyperlinker.outputNote")) {
-				let contents = yield Zotero.File.getContentsAsync(hyperlinkedbase + '.txt');
-				let newNote = new Zotero.Item('note');
-				newNote.setNote(contents);
-				newNote.parentID = item.id;
-				yield newNote.saveTx();
-			}
-
-			// create attachments with link to output formats
-			for (let format of requestedFormats) {
-				yield Zotero.Attachments.linkFromFile({
-					file: hyperlinkedbase + '.' + format,
-					parentItemID: item.id
-				});
-			}
-			
-			if (!Zotero.Prefs.get("zoteroreferencehyperlinker.outputPNG") && imageListArray) {
-				// delete image list
-				yield Zotero.File.removeIfExists(imageList);
-				// delete PNGs
-				for (let imageName of imageListArray) {
-					yield Zotero.File.removeIfExists(imageName);
+						alert(typeof contents);
+					} else {
+						alert('The GROBID server is not currently running');
+					}
 				}
 			}
-			*/
+
+			request.send();
 		}
 	});
 
