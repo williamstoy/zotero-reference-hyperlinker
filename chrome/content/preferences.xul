@@ -24,6 +24,7 @@
         <preferences>
             <preference id="pref-zoteroreferencehyperlinker-grobidPath" name="extensions.zotero.zoteroreferencehyperlinker.grobidPath" type="string"/>
             <preference id="pref-zoteroreferencehyperlinker-port" name="extensions.zotero.zoteroreferencehyperlinker.port" type="int"/>
+            <preference id="pref-zoteroreferencehyperlinker-automatic-hyperlinker" name="extensions.zotero.zoteroreferencehyperlinker.automaticHyperlinker" type="bool"/>
             <preference id="pref-zoteroreferencehyperlinker-overwrite-pdf" name="extensions.zotero.zoteroreferencehyperlinker.overwritePDF" type="bool"/>
         </preferences>
         <groupbox>
@@ -34,6 +35,7 @@
                 <label value="Choose the port that GROBID is running on (default is 8070):"/>
                 <textbox id="pref-zoteroreferencehyperlinker-port-value" preference="pref-zoteroreferencehyperlinker-port" width="100"/>
             </hbox>
+            <checkbox id="checkbox-zoteroreferencehyperlinker-automatic-hyperlinker" preference="pref-zoteroreferencehyperlinker-automatic-hyperlinker" label="Automatically add hyperlinks to imported documents" class="indented-pref"/>
         </groupbox>
         <groupbox>
             <caption label="Output options"/>
